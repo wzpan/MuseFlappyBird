@@ -28,3 +28,10 @@ python flappy.py --ip YOUR_PHONE_IP --port 5000
 ```
 
 Hopefully it works! Now try to blink your eyes make the bird flappy!
+
+## ScreenShot
+
+![Flappy Bird](screenshot1.png)
+
+[pygame]: http://www.pygame.org
+[pipenv]: https://pipenv.readthedocs.io/en/latest/
