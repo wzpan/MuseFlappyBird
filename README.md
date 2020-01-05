@@ -24,7 +24,7 @@ pip install -r requirements.txt
 4. On your PC, run:
 
 ``` bash
-python flappy.py --ip YOUR_PHONE_IP --port 5000
+python flappy.py --ip YOUR_PC_IP --port 5000
 ```
 
 Hopefully it works! Now try to blink your eyes make the bird flappy!
