@@ -1,9 +1,15 @@
 from itertools import cycle
 import random
 import sys
+import argparse
 
 import pygame
+import _thread as thread
 from pygame.locals import *
+
+from pythonosc import dispatcher as dsp
+from pythonosc import osc_server
+from pythonosc import udp_client
 
 
 FPS = 30
@@ -54,9 +60,36 @@ try:
 except NameError:
     xrange = range
 
+def blink_handler(unused_addr, args, blink):
+    if blink:
+        print("blink")
+        newevent = pygame.event.Event(pygame.locals.KEYDOWN, key=K_SPACE, mod=pygame.locals.KMOD_NONE) #create the event
+        pygame.event.post(newevent) #add the event to the queue
+
+def start_osc(ip, port):
+    dispatcher = dsp.Dispatcher()
+    dispatcher.map("/muse/elements/blink", blink_handler, "EEG")
+
+    server = osc_server.ThreadingOSCUDPServer(
+        (ip, port), dispatcher)
+    print("Serving on {}".format(server.server_address))
+    server.serve_forever()
 
 def main():
     global SCREEN, FPSCLOCK
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--ip",
+                        default="127.0.0.1",
+                        help="The ip to listen on")
+    parser.add_argument("--port",
+                        type=int,
+                        default=5000,
+                        help="The port to listen on")
+    args = parser.parse_args()    
+
+    thread.start_new_thread(start_osc, (args.ip, args.port))
+
     pygame.init()
     FPSCLOCK = pygame.time.Clock()
     SCREEN = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
@@ -131,7 +164,8 @@ def main():
 
         movementInfo = showWelcomeAnimation()
         crashInfo = mainGame(movementInfo)
-        showGameOverScreen(crashInfo)
+        showGameOverScreen(crashInfo)   
+    
 
 
 def showWelcomeAnimation():
@@ -371,9 +405,6 @@ def showGameOverScreen(crashInfo):
 
         SCREEN.blit(IMAGES['base'], (basex, BASEY))
         showScore(score)
-
-        
-
 
         playerSurface = pygame.transform.rotate(IMAGES['player'][1], playerRot)
         SCREEN.blit(playerSurface, (playerx,playery))
