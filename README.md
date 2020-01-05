@@ -1,49 +1,30 @@
-FlapPyBird
+MuseFlapPyBird
 ===============
 
-A Flappy Bird Clone made using [python-pygame][pygame]
+Use Muse headband to play Flappy Bird game with blink event.
 
-How-to (as tested on MacOS)
----------------------------
+The original version comes from [sourabhv/FlapPyBird](https://github.com/sourabhv/FlapPyBird).
 
-1. Install Python 3.x (recommended) 2.x from [here](https://www.python.org/download/releases/)
+## requirements
 
-2. Install [pipenv]
+- A Muse Headband. Currently works with the 2014 Muse Model MU-01, the 2016 Muse Model MU-02 and the 2018 "Muse 2" Model MU-03.
+- An iPhone.
+- [Muse Monitor](https://musemonitor.com/). Install it on the phone that connects to your muse headband.
+- Install the following python dependencies:
 
-2. Install PyGame 1.9.x from [here](http://www.pygame.org/download.shtml)
-
-3. Clone the repository:
-
-```bash
-$ git clone https://github.com/sourabhv/FlapPyBird
+``` bash
+pip install -r requirements.txt
 ```
 
-or download as zip and extract.
+## how to use
 
-4. In the root directory run
+1. Make sure Muse headband is connected to your phone using official Muse application.
+2. Get your PC's IP.
+3. Open Muse Monitor. Go to the settings page, and then type your PC's ip at the `OSC Stream Target IP` field.
+4. On your PC, run:
 
-```bash
-$ pipenv install
-$ pipenv run python flappy.py
+``` bash
+python flappy.py --ip YOUR_PHONE_IP --port 5000
 ```
 
-5. Use <kbd>&uarr;</kbd> or <kbd>Space</kbd> key to play and <kbd>Esc</kbd> to close the game.
-
-(For x64 windows, get exe [here](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pygame))
-
-Notable forks
--------------
-
-- [FlappyBird Fury Mode](https://github.com/Cc618/FlapPyBird)
-- [FlappyBird Model Predictive Control](https://github.com/philzook58/FlapPyBird-MPC)
-
-Made something awesome from FlapPyBird? Add it to the list :)
-
-
-ScreenShot
-----------
-
-![Flappy Bird](screenshot1.png)
-
-[pygame]: http://www.pygame.org
-[pipenv]: https://pipenv.readthedocs.io/en/latest/
+Hopefully it works! Now try to blink your eyes make the bird flappy!
